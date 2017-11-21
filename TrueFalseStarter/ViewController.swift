@@ -203,46 +203,46 @@ class ViewController: UIViewController {
         audioPlayer.play()
     }
     
-    func startTimer() {
-        
-        if timerRunning == false {
-            
-            lightningTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.countDownTimer)), userInfo: nil, repeats: true)
-            
-            timerRunning = true
-            
-            playSound(soundFileName: "timer")
-        }
-    }
-    
-    @objc func countDownTimer() {
-        
-        
-        // countdown by 1 second
-        seconds -= 1
-        
-        timerLabel.text = "Timer: \(seconds)"
-        
-        if seconds == 0 {
-            
-            lightningTimer.invalidate()
-            
-            questionsAsked += 1
-            
-            questionField.text = "Sorry, time ran out"
-            displayScore()
-            
-            playSound(soundFileName: "gameStartOver")
-            resetTimer()
-            loadNextRoundWithDelay(seconds: 2)
-        }
-    }
-    
-    func resetTimer() {
-        
-        seconds = 15
-        timerLabel.text = "Timer: \(seconds)"
-        timerRunning = false
-    }
+//    func startTimer() {
+//        
+//        if timerRunning == false {
+//            
+//            lightningTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.countDownTimer)), userInfo: nil, repeats: true)
+//            
+//            timerRunning = true
+//            
+//            playSound(soundFileName: "timer")
+//        }
+//    }
+//    
+//    @objc func countDownTimer() {
+//        
+//        
+//        // countdown by 1 second
+//        seconds -= 1
+//        
+//        timerLabel.text = "Timer: \(seconds)"
+//        
+//        if seconds == 0 {
+//            
+//            lightningTimer.invalidate()
+//            
+//            questionsAsked += 1
+//            
+//            questionField.text = "Sorry, time ran out"
+//            displayScore()
+//            
+//            playSound(soundFileName: "gameStartOver")
+//            resetTimer()
+//            loadNextRoundWithDelay(seconds: 2)
+//        }
+//    }
+//    
+//    func resetTimer() {
+//        
+//        seconds = 15
+//        timerLabel.text = "Timer: \(seconds)"
+//        timerRunning = false
+//    }
 }
 
