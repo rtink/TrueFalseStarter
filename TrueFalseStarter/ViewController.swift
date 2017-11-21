@@ -20,16 +20,14 @@ class ViewController: UIViewController {
    
     var audioPlayer: AVAudioPlayer!
     
+    @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var firstAnswerButton: UIButton!
     @IBOutlet weak var secondAnswerButton: UIButton!
     @IBOutlet weak var thirdAnswerButton: UIButton!
     @IBOutlet weak var fourthAnswerButton: UIButton!
-    @IBOutlet weak var timerLabel: UILabel!
-    
-
-    @IBOutlet weak var progressBar: UIView!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +55,9 @@ class ViewController: UIViewController {
         let triviaQuestions = allGameQuestions[indexOfSelectedQuestion]
         questionField.text = triviaQuestions.question
         playAgainButton.isHidden = true
+        resultLabel.isHidden = true
         
         enableButtons()
-        adjustButtons()
         
         firstAnswerButton.setTitle(triviaQuestions.firstAnswer, for: .normal)
         secondAnswerButton.setTitle(triviaQuestions.secondAnswer, for: .normal)
@@ -71,12 +69,12 @@ class ViewController: UIViewController {
     
     func displayScore() {
         
-        if correctQuestions == 17 {
+        if correctQuestions == 13 {
             questionField.text = "1st Place! You scored \(correctQuestions) out of \(questionsPerRound)"
             questionField.textColor = UIColor.yellow
         } else if correctQuestions > 10{
             questionField.text = "2nd Place Place! You scored \(correctQuestions) out of \(questionsPerRound)"
-            questionField.textColor = UIColor.gray
+            questionField.textColor = UIColor.darkGray
         } else {
             questionField.text = "3rd Place Place! You scored \(correctQuestions) out of \(questionsPerRound)"
             questionField.textColor = UIColor.brown
@@ -86,7 +84,8 @@ class ViewController: UIViewController {
         secondAnswerButton.isHidden = true
         thirdAnswerButton.isHidden = true
         fourthAnswerButton.isHidden = true
-        timerLabel.isHidden = true
+        resultLabel.isHidden = true
+        
         
         // Display play again button
         playAgainButton.isHidden = false
@@ -96,25 +95,25 @@ class ViewController: UIViewController {
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
         questionsAsked += 1
-        
+        //resultLabel.isHidden = true
         let currentQuestion = allGameQuestions[indexOfSelectedQuestion]
         let correctAnswer = currentQuestion.correctAnswer
         
         // check for correct answer, display appropriate message, sound & color
         if (sender === firstAnswerButton && correctAnswer == currentQuestion.firstAnswer) || (sender === secondAnswerButton && correctAnswer == currentQuestion.secondAnswer) || (sender === thirdAnswerButton && correctAnswer == currentQuestion.thirdAnswer) || (sender === fourthAnswerButton && correctAnswer == currentQuestion.fourthAnswer) {
+            resultLabel.isHidden = false
             correctQuestions += 1
-            questionField.text = "Correct!"
-            questionField.textColor = UIColor.green
+            resultLabel.text = "Correct!"
+            resultLabel.textColor = UIColor.green
             playSound(soundFileName: "correctAnswer")
         } else {
-            questionField.text = "Sorry. Correct answer is \(correctAnswer)."
-            questionField.textColor = UIColor.orange
+            resultLabel.isHidden = false
+            resultLabel.text = "Sorry. Correct answer is \(correctAnswer)."
+            resultLabel.textColor = UIColor.orange
             playSound(soundFileName: "wrongAnswer")
         }
         
-        
         disableButtons()
-        
         loadNextRoundWithDelay(seconds: 2)
     }
     
@@ -125,7 +124,6 @@ class ViewController: UIViewController {
             displayScore()
         } else {
             // Continue game
-            questionField.textColor = UIColor.white
             displayQuestion()
             
         }
@@ -137,8 +135,9 @@ class ViewController: UIViewController {
         secondAnswerButton.isHidden = false
         thirdAnswerButton.isHidden = false
         fourthAnswerButton.isHidden = false
-        timerLabel.isHidden = false
+        resultLabel.isHidden = true
         
+        questionField.textColor = UIColor.white
         questionsAsked = 0
         correctQuestions = 0
         prevQuestionsArray.removeAll()
@@ -155,7 +154,6 @@ class ViewController: UIViewController {
         secondAnswerButton.isUserInteractionEnabled = true
         thirdAnswerButton.isUserInteractionEnabled = true
         fourthAnswerButton.isUserInteractionEnabled = true
-        
     }
     
     func disableButtons() {
@@ -164,17 +162,6 @@ class ViewController: UIViewController {
         thirdAnswerButton.isUserInteractionEnabled = false
         fourthAnswerButton.isUserInteractionEnabled = false
     }
-    
-    func adjustButtons() {
-        let fourthAnswer = allGameQuestions[indexOfSelectedQuestion].fourthAnswer
-        
-        if fourthAnswer == "" {
-            fourthAnswerButton.isHidden = true
-        } else {
-            fourthAnswerButton.isHidden = false
-        }
-    }
-    
     
     func loadNextRoundWithDelay(seconds: Int) {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
