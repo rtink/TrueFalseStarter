@@ -53,15 +53,7 @@ let gameQuestion12 = Question(question: "Which nation produces the most oil?", f
 
 let gameQuestion13 = Question(question: "Which country has most recently won consecutive World Cups in Soccer?", firstAnswer: "Italy", secondAnswer: "Brazil", thirdAnswer: "Argentina", fourthAnswer: "Spain", correctAnswer: "Brazil")
 
-// 3 Options questions
 
-let gameQuestion14 = Question(question: "Which of the following rivers is longest?", firstAnswer: "Yangtze", secondAnswer: "Mississippi", thirdAnswer: "Congo", fourthAnswer: "", correctAnswer: "Mississippi")
-
-let gameQuestion15 = Question(question: "Which city is the oldest?", firstAnswer: "Mexico City", secondAnswer: "Cape Town", thirdAnswer: "San Juan", fourthAnswer: "", correctAnswer: "Mexico City")
-
-let gameQuestion16 = Question(question: "Which country was the first to allow women to vote in national elections?", firstAnswer: "Poland", secondAnswer: "Sweden", thirdAnswer: "Senegal", fourthAnswer: "", correctAnswer: "Poland")
-
-let gameQuestion17 = Question(question: "Which of these countries won the most medals in the 2012 Summer Games?", firstAnswer: "France", secondAnswer: "Germany", thirdAnswer: "Great Britian", fourthAnswer: "", correctAnswer: "Great Britian")
 
 let allGameQuestions = [
     gameQuestion01,
@@ -76,11 +68,7 @@ let allGameQuestions = [
     gameQuestion10,
     gameQuestion11,
     gameQuestion12,
-    gameQuestion13,
-    gameQuestion14,
-    gameQuestion15,
-    gameQuestion16,
-    gameQuestion17
+    gameQuestion13
 ]
 
 
